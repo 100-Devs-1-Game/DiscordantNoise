@@ -17,7 +17,6 @@ func _ready() -> void:
 	
 func on_start_button_pressed():
 	get_tree().root.add_child(main_scene)
-	Conductor.notifier.running = true
 	queue_free()
 	
 

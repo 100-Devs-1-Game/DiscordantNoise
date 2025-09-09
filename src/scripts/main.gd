@@ -4,6 +4,7 @@ class_name Main extends Node
 
 
 func _ready() -> void:
+	Conductor.notifier.running = true
 	GameEvents.died.connect(on_died)
 	add_to_group("main")
 
