@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://drv8fcnicf3ll"]
+
+[ext_resource type="Script" uid="uid://q8jgul0p8est" path="res://scripts/metronome/metronome.gd" id="1_dbxwv"]
+[ext_resource type="Script" uid="uid://xmupm8rm2hkn" path="res://addons/rhythm_notifier/rhythm_notifier.gd" id="2_ii0ch"]
+[ext_resource type="Script" uid="uid://dqgbqpf0hui6q" path="res://scripts/metronome/SongAttributes.gd" id="2_rfu70"]
+[ext_resource type="Script" uid="uid://b8aig0r4ggxhw" path="res://scripts/metronome/music_notation/time_signiture.gd" id="3_f1pwc"]
+
+[node name="Conductor" type="Node"]
+script = ExtResource("1_dbxwv")
+
+[node name="RhythmNotifier" type="Node" parent="."]
+script = ExtResource("2_ii0ch")
+metadata/_custom_type_script = "uid://xmupm8rm2hkn"
+
+[node name="SongAttributes" type="Node" parent="."]
+script = ExtResource("2_rfu70")
+metadata/_custom_type_script = "uid://dqgbqpf0hui6q"
+
+[node name="TimeSignature" type="Node" parent="SongAttributes"]
+script = ExtResource("3_f1pwc")
+top = 4
+bottom = 4
+metadata/_custom_type_script = "uid://b8aig0r4ggxhw"

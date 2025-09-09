@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="SongAttributesResource" load_steps=2 format=3 uid="uid://8pxr4cqp7vio"]
+
+[ext_resource type="Script" uid="uid://cartmajlhkvsq" path="res://scripts/metronome/SongAttributesResource.gd" id="1_ikpxk"]
+
+[resource]
+script = ExtResource("1_ikpxk")
+bpm = 120
+time_signature_top = 4
+time_signature_bottom = 4
+metadata/_custom_type_script = "uid://cartmajlhkvsq"
