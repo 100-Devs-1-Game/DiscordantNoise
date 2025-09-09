@@ -1,15 +1,18 @@
-[gd_scene load_steps=6 format=3 uid="uid://d4jhyeyjlv2c6"]
+[gd_scene load_steps=7 format=3 uid="uid://d4jhyeyjlv2c6"]
 
 [ext_resource type="Script" uid="uid://d4bbgm4disbvk" path="res://scripts/main.gd" id="1_jyhfs"]
 [ext_resource type="PackedScene" uid="uid://c6al2btloohgx" path="res://scenes/player0.tscn" id="1_o5qli"]
 [ext_resource type="Texture2D" uid="uid://dwxxqf2ibgcf" path="res://icon.svg" id="2_0wfyh"]
 [ext_resource type="Script" uid="uid://dtbnn8wuygon" path="res://scripts/components/hitbox_component.gd" id="3_sugp2"]
+[ext_resource type="Script" uid="uid://dws6aek453etd" path="res://scripts/components/ui/menu_ui_controller.gd" id="5_tbgi4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sugp2"]
 size = Vector2(132, 132)
 
-[node name="Main" type="Node"]
+[node name="Main" type="Node" node_paths=PackedStringArray("menu_ui")]
+process_mode = 3
 script = ExtResource("1_jyhfs")
+menu_ui = NodePath("MenuUI")
 
 [node name="Player" parent="." instance=ExtResource("1_o5qli")]
 
@@ -22,5 +25,9 @@ script = ExtResource("3_sugp2")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/HitBoxComponent"]
 shape = SubResource("RectangleShape2D_sugp2")
+
+[node name="MenuUI" type="CanvasLayer" parent="."]
+process_mode = 3
+script = ExtResource("5_tbgi4")
 
 [editable path="Player"]
