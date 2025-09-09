@@ -9,6 +9,7 @@ var main_scene = preload("res://scenes/main.tscn").instantiate()
 
 
 func _ready() -> void:
+	Conductor.notifier.running = false
 	start_button.pressed.connect(on_start_button_pressed)
 	options_button.pressed.connect(on_options_button_pressed)
 	exit_button.pressed.connect(on_exit_button_pressed)
@@ -16,6 +17,7 @@ func _ready() -> void:
 	
 func on_start_button_pressed():
 	get_tree().root.add_child(main_scene)
+	Conductor.notifier.running = true
 	queue_free()
 	
 
