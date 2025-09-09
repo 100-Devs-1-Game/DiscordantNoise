@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Metronomegame"
-run/main_scene="uid://d4jhyeyjlv2c6"
+run/main_scene="uid://db8xobfrb5b1y"
 config/features=PackedStringArray("4.4", "Mobile")
 config/icon="res://icon.svg"
 
