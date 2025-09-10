@@ -7,6 +7,7 @@ var note : BaseNote
 #var playable_on : Notes = Notes.EIGHTH_NOTE
 var playable_on : BaseNote
 var offset : float
+var _time_since_last_note : float
 
 
 #value from 0 to 10 determining the ranges at which something is considered a hit or not
@@ -21,6 +22,14 @@ enum Note_Score {PERFECT, GOOD, BAD, MISS}
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	set_process(true)
+	_time_since_last_note = 99999
+	print(perfect_range)
+	print(good_range)
+	print(bad_range)
+	#TODO: rework this temp fix
+	note = get_child(0)
+	playable_on = get_child(0)
 	pass # Replace with function body.
 	
 #TODO, calculate note rating depending on how close to how off the input is from the beat/playable beat
@@ -37,6 +46,16 @@ func give_note_rating() -> Note_Score:
 		return Note_Score.BAD
 	print("miss")
 	return Note_Score.MISS
+	
+	
+func _process(delta: float) -> void:
+	_time_since_last_note += delta
+	pass
+
+func on_note_triggered(note: BaseNote,count: int) -> void:
+	print("PlayerNoteTriggered")
+	_time_since_last_note = 0
+	pass
 
 # TODO, if the bpm is too high, the ranges might go outside the beat timings
 # at least make it so that they have to be within the range of the beat
@@ -45,29 +64,16 @@ func _recalculate_ranges() -> void:
 	
 # TODO, get the absolute distance from a playable note. Only positive values, no negative
 func _error_from_valid_note() -> float:
+	print("Error check on", self, "time =", _time_since_last_note)
 	var bottom_time_sig: int = Conductor.getAttributes().time_signature.bottom
-	#var tsb : float = #note.time_since_beat
-	var tsb: float = playable_on._internal_timer
-	
-	#var beat_length = note.get_beat_duration()
 	
 	var note_length : float = playable_on.get_beat_duration()
+	
 	var error_diffs : Array[float] = [
-		tsb,
-		note_length - tsb
+		_time_since_last_note,
+		abs(note_length - _time_since_last_note)
 	]
-	#Case for when playable_on <= note
 	
-	
-	'''
-	#calculates the difference between notes and the playable timings
-	var npb : float = playable_on.notes_per_beat #how many notes per beat
-	var note_length : float = playable_on.get_beat_duration()
-	for i in range(0, npb + 1):
-		error_diffs.append(abs((note_length * i) - tsb))
-		
-	#TODO case for when playable_on > note
-	'''
 	print(error_diffs.min())
 	
 	return error_diffs.min()
