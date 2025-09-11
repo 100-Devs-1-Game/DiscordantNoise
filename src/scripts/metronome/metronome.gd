@@ -34,10 +34,13 @@ func setAttributesName(att_name : String) -> void:
 func activateNotifier() -> void:
 	notifier.bpm = attributes.bpm
 
-	var b = notifier.beats(1)
-	b.connect(func(count): print("Hello from note %d!" % (count)))
+	#var b = notifier.beats(1)
+	#b.connect(func(count): print("Hello from note %d!" % (count)))
 	var a = notifier.beats(1)
-	a.connect(func(count): emit_signal("beat_occured"))
+	a.connect(func(count): 
+		emit_signal("beat_occured")
+		print("Hello from note %d!" % (count))
+		)
 	notifier.beats(attributes.time_signature.top).connect(func(count): print("Hello from measure %d!" % (count)))
 	notifier.running = true
 	
@@ -47,5 +50,5 @@ func getNoteLength() -> float:
 	return notifier.beat_length
 	
 func get_rhythm(interval: float, offset: float = 0.0, once: bool = false) -> Signal:
-	return notifier.beats(interval, once, offset)
+	return notifier.beats(interval, !once, offset)
 	

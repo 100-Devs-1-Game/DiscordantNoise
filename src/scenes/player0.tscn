@@ -1,10 +1,11 @@
-[gd_scene load_steps=13 format=3 uid="uid://c6al2btloohgx"]
+[gd_scene load_steps=14 format=3 uid="uid://c6al2btloohgx"]
 
 [ext_resource type="Script" uid="uid://dgvhs8c8jo1at" path="res://scripts/player/player.gd" id="1_iq3ln"]
 [ext_resource type="Script" uid="uid://bd5bvp40wvxeh" path="res://scripts/player/player_state_machine.gd" id="2_tv4ow"]
 [ext_resource type="Script" uid="uid://1yhfapoar26s" path="res://scripts/player/states/state_idle.gd" id="3_hxbjb"]
 [ext_resource type="Script" uid="uid://bgdd0pksxmi0b" path="res://scripts/player/states/state_walk.gd" id="4_ads5b"]
 [ext_resource type="Script" uid="uid://y18fdptngycp" path="res://scripts/player/states/state_dash.gd" id="5_60uw5"]
+[ext_resource type="Script" uid="uid://ukqkfd7la4xl" path="res://scripts/metronome/music_notation/notes/player_note.gd" id="6_iq3ln"]
 [ext_resource type="Script" uid="uid://dwyixca3o82d1" path="res://scripts/metronome/music_notation/notes/qtr_note.gd" id="6_sf4gc"]
 [ext_resource type="Texture2D" uid="uid://b66pulo52gho8" path="res://assets/player/TempPlayer.png" id="7_3wdol"]
 [ext_resource type="Script" uid="uid://lgu40v7o00f2" path="res://scripts/components/health_component.gd" id="10_oek5m"]
@@ -44,8 +45,14 @@ move_speed = 275.0
 
 [node name="Dash" type="Node" parent="StateMachine"]
 script = ExtResource("5_60uw5")
+initial_speed = null
+dash_length = null
 
-[node name="QuarterNote" type="Node" parent="StateMachine/Dash"]
+[node name="PlayerNote" type="Node" parent="StateMachine/Dash"]
+script = ExtResource("6_iq3ln")
+metadata/_custom_type_script = "uid://ukqkfd7la4xl"
+
+[node name="QuarterNote" type="Node" parent="StateMachine/Dash/PlayerNote"]
 script = ExtResource("6_sf4gc")
 
 [node name="PlayerSprite" type="AnimatedSprite2D" parent="."]
