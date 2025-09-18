@@ -29,9 +29,9 @@ func _physics_process(delta: float) -> void:
 	pass
 
 func _movement(delta: float) -> void:
-	direction = Input.get_vector("move_left", "move_right", "move_up", "move_down").normalized()
-	_turn_char(direction)
-	
+	direction.x = Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
+	direction.y = Input.get_action_strength("move_down") - Input.get_action_strength("move_up")
+	direction = direction.normalized()
 	
 
 func _turn_char(dir: Vector2) -> void:
