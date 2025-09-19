@@ -15,8 +15,10 @@ script = ExtResource("1_jyhfs")
 menu_ui = NodePath("MenuUI")
 
 [node name="Player" parent="." instance=ExtResource("1_o5qli")]
+process_mode = 1
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+process_mode = 1
 position = Vector2(918, 206)
 texture = ExtResource("2_0wfyh")
 

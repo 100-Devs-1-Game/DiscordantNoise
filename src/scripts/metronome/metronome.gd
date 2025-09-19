@@ -49,6 +49,10 @@ func activateNotifier() -> void:
 func getNoteLength() -> float:
 	return notifier.beat_length
 	
+		
 func get_rhythm(interval: float, offset: float = 0.0, once: bool = false) -> Signal:
 	return notifier.beats(interval, !once, offset)
 	
+
+func get_current_position() -> float:
+	return notifier.current_position
