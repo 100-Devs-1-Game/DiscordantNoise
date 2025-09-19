@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://db8xobfrb5b1y"]
+[gd_scene load_steps=5 format=3 uid="uid://db8xobfrb5b1y"]
 
 [ext_resource type="Script" uid="uid://bl7s0d1n31r64" path="res://scripts/ui/main_menu.gd" id="1_5ssjm"]
-[ext_resource type="FontFile" uid="uid://crd41l6rvnekw" path="res://assets/fonts/temp/Asimovian/Asimovian-Regular.ttf" id="1_t18ix"]
+[ext_resource type="FontFile" uid="uid://crd41l6rvnekw" path="res://external/fonts/temp/Asimovian/Asimovian-Regular.ttf" id="1_t18ix"]
 [ext_resource type="PackedScene" uid="uid://8omltyga2x0n" path="res://scenes/ui/menu/options_menu.tscn" id="3_eip10"]
+[ext_resource type="AudioStream" uid="uid://bar2nn3cpro78" path="res://assets/music/Main Menu.wav" id="4_araup"]
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -115,3 +116,8 @@ text = "Exit Game"
 [node name="OptionsMenu" parent="." instance=ExtResource("3_eip10")]
 visible = false
 layout_mode = 1
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_araup")
+autoplay = true
+bus = &"Music"

@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://8omltyga2x0n"]
 
 [ext_resource type="Script" uid="uid://c8atcnf1bueti" path="res://scripts/ui/options_menu.gd" id="1_m7wsh"]
-[ext_resource type="FontFile" uid="uid://crd41l6rvnekw" path="res://assets/fonts/temp/Asimovian/Asimovian-Regular.ttf" id="1_tfrac"]
+[ext_resource type="FontFile" uid="uid://crd41l6rvnekw" path="res://external/fonts/temp/Asimovian/Asimovian-Regular.ttf" id="1_tfrac"]
 [ext_resource type="PackedScene" uid="uid://bnfxc4blxjftx" path="res://scenes/ui/menu/settings_tab_container.tscn" id="3_o28os"]
 
 [node name="OptionsMenu" type="Control"]
