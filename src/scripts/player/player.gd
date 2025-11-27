@@ -32,6 +32,7 @@ func _movement(delta: float) -> void:
 	direction.x = Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
 	direction.y = Input.get_action_strength("move_down") - Input.get_action_strength("move_up")
 	direction = direction.normalized()
+	_turn_char(direction)
 	
 
 func _turn_char(dir: Vector2) -> void:
