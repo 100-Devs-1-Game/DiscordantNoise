@@ -1,12 +1,15 @@
 class_name Main extends Node
 
 @export var menu_ui: MenuUIController
-
+@onready var player: Player = $Player
+@onready var playerSpawn: Marker2D = $PlayerSpawn
 
 func _ready() -> void:
 	Conductor.notifier.running = true
 	GameEvents.died.connect(on_died)
 	add_to_group("main")
+	
+	player.on_start(playerSpawn.position)
 
 
 func on_died():

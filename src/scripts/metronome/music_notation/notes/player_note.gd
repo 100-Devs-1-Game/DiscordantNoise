@@ -1,7 +1,5 @@
 class_name PlayerNote extends Node
 
-var note : BaseNote
-
 #enum Notes {WHOLE_NOTE,HALF_NOTE,QUARTER_NOTE, EIGHTH_NOTE, SIXTEENTH_NOTE}
 
 #var playable_on : Notes = Notes.EIGHTH_NOTE
@@ -24,27 +22,18 @@ enum Note_Score {PERFECT, GOOD, BAD, MISS}
 func _ready() -> void:
 	set_process(true)
 	_time_since_last_note = 99999
-	print(perfect_range)
-	print(good_range)
-	print(bad_range)
 	#TODO: rework this temp fix
-	note = get_child(0)
 	playable_on = get_child(0)
-	pass # Replace with function body.
 	
 #TODO, calculate note rating depending on how close to how off the input is from the beat/playable beat
 func give_note_rating() -> Note_Score:
 	var error_dist : float = _error_from_valid_note()
 	if (error_dist < perfect_range):
-		print("perfect")
 		return Note_Score.PERFECT
 	if (error_dist < good_range):
-		print("good")
 		return Note_Score.GOOD
 	if (error_dist < bad_range):
-		print("bad")
 		return Note_Score.BAD
-	print("miss")
 	return Note_Score.MISS
 	
 	
@@ -52,8 +41,7 @@ func _process(delta: float) -> void:
 	_time_since_last_note += delta
 	pass
 
-func on_note_triggered(note: BaseNote,count: int) -> void:
-	print("PlayerNoteTriggered")
+func on_note_triggered(note: BaseNote, count: int) -> void:
 	_time_since_last_note = 0
 	pass
 
@@ -64,8 +52,7 @@ func _recalculate_ranges() -> void:
 	
 # TODO, get the absolute distance from a playable note. Only positive values, no negative
 func _error_from_valid_note() -> float:
-	print("Error check on", self, "time =", _time_since_last_note)
-	var bottom_time_sig: int = Conductor.getAttributes().time_signature.bottom
+	var bottom_time_sig: int = Conductor.get_attributes().time_signature.bottom
 	
 	var note_length : float = playable_on.get_beat_duration()
 	
@@ -73,7 +60,5 @@ func _error_from_valid_note() -> float:
 		_time_since_last_note,
 		abs(note_length - _time_since_last_note)
 	]
-	
-	print(error_diffs.min())
-	
+		
 	return error_diffs.min()

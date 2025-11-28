@@ -2,6 +2,7 @@ class_name State_Idle extends State
 
 @onready var walk : State = $"../Walk"
 @onready var dash : State_Dash = $"../Dash"
+@onready var melee_attack : State_Attack = $"../Attack"
 
 # When player enters state
 func Enter() -> void:
@@ -27,4 +28,6 @@ func Physics(_delta : float) -> State:
 func HandleInput(_event : InputEvent) -> State:
 	if (_event.is_action_pressed("dash") && !dash.on_cooldown):
 		return dash
+	if (_event.is_action_pressed("melee_attack") && !melee_attack.on_cooldown):
+		return melee_attack
 	return null
