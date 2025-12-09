@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://c6al2btloohgx"]
+[gd_scene load_steps=22 format=3 uid="uid://c6al2btloohgx"]
 
 [ext_resource type="Script" uid="uid://dgvhs8c8jo1at" path="res://scripts/player/player.gd" id="1_y4r1p"]
 [ext_resource type="Script" uid="uid://bd5bvp40wvxeh" path="res://scripts/player/player_state_machine.gd" id="2_d2wvv"]
@@ -12,6 +12,8 @@
 [ext_resource type="Script" uid="uid://lgu40v7o00f2" path="res://scripts/components/health_component.gd" id="9_fulsm"]
 [ext_resource type="Script" uid="uid://vhlcx45q6vks" path="res://scripts/components/hurtbox_component.gd" id="10_4r5pv"]
 [ext_resource type="Script" uid="uid://bi8jygfs5mbh1" path="res://scripts/player/player_action_rating.gd" id="12_3v2ag"]
+[ext_resource type="Script" uid="uid://dbqf62uivtajk" path="res://scripts/player/player_attack.gd" id="13_jej6c"]
+[ext_resource type="Texture2D" uid="uid://dp8ty6ronaale" path="res://assets/sprites/bluenote1.png" id="14_f1ej7"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_5refm"]
 animations = [{
@@ -29,6 +31,70 @@ radius = 23.0868
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_tv4ow"]
 radius = 26.4008
+
+[sub_resource type="Animation" id="Animation_f1ej7"]
+resource_name = "player_attack_animation"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerAttackSprite:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PlayerAttackHitbox/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [true, false, true]
+}
+
+[sub_resource type="Animation" id="Animation_oprun"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerAttackSprite:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PlayerAttackHitbox/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_a8ls1"]
+_data = {
+&"RESET": SubResource("Animation_oprun"),
+&"player_attack_animation": SubResource("Animation_f1ej7")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oprun"]
+size = Vector2(26, 56)
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_y4r1p")
@@ -87,4 +153,25 @@ shape = SubResource("CircleShape2D_tv4ow")
 [node name="PlayerActionRating" type="Node2D" parent="."]
 script = ExtResource("12_3v2ag")
 
+[node name="PlayerAttack" type="Node2D" parent="."]
+position = Vector2(45, 0)
+script = ExtResource("13_jej6c")
+
+[node name="PlayerAttackAnimation" type="AnimationPlayer" parent="PlayerAttack"]
+callback_mode_process = 0
+libraries = {
+&"": SubResource("AnimationLibrary_a8ls1")
+}
+
+[node name="PlayerAttackHitbox" type="Area2D" parent="PlayerAttack"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerAttack/PlayerAttackHitbox"]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_oprun")
+
+[node name="PlayerAttackSprite" type="Sprite2D" parent="PlayerAttack"]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("14_f1ej7")
+
 [connection signal="attack" from="StateMachine/Attack" to="PlayerActionRating" method="on_action"]
+[connection signal="attack" from="StateMachine/Attack" to="PlayerAttack" method="on_attack"]

@@ -17,7 +17,6 @@ func _process(delta: float) -> void:
 
 
 func on_action(rating: PlayerNote.Note_Score) -> void:
-	print("Player attacked with " + rating_to_message[rating] + " rating")
 	var label = Label.new()
 	label.text = rating_to_message[rating]
 	label.add_theme_font_size_override("font_size", 48)
@@ -25,7 +24,7 @@ func on_action(rating: PlayerNote.Note_Score) -> void:
 	
 	add_child(label)
 	label.set_as_top_level(true)
-	label.global_position = global_position + Vector2(30, -30)
+	label.global_position = global_position + Vector2(60, -30)
 	
 	var tween = create_tween()
 	tween.tween_property(label, "position:y", label.position.y - 40, 0.6)
